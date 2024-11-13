@@ -1,0 +1,29 @@
+<div class="container mt-2">
+  <div class="row justify-content-around">
+    <div class="col-12 col-sm-8" data-controller="insert-review">
+      <p>
+        <%= link_to 'Back to Restaurants', restaurants_path, class: 'btn-light opacity-50 text-decoration-none' %>
+      </p>
+      <div class="d-flex align-items-center">
+        <h1 class="m-0"><%= @restaurant.name %></h1>
+        <p  class="m-0 ms-2" style="font-size: 0.8em"><%= @restaurant.address %>
+        <p  class="m-0 ms-2" style="font-size: 0.8em"><%= @restaurant.phone_number %>
+        <p  class="m-0 ms-2" style="font-size: 0.8em"><%= @restaurant.category %>
+        </p>
+      </div>
+         <h3>
+        Reviews
+        <%= link_to '+', new_restaurant_review_path(@restaurant)  %>
+      </h3>
+      <ul>
+        <% if @restaurant.reviews.any? %>
+          <% @restaurant.reviews.each do |review| %>
+            <li>
+              <%= review.content %>
+              <%= link_to 'x', review_path(review), data: { turbo_method: :delete, turbo_confirm: 'Delete review?' } %>
+            </li>
+          <% end %>
+        <% else %>
+          <li>No reviews yet</li>
+        <% end %>
+      </ul>
